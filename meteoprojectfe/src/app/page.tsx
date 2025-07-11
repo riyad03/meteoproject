@@ -1,3 +1,5 @@
+"use client"
+
 import ImportComponent from "@/app/pages/Imp/Imp_page"
 
 export default function Home() {

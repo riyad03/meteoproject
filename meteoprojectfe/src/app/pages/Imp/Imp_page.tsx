@@ -1,6 +1,11 @@
+
+
 import { Button } from "@/components/ui/button" //needs npx shadcn@latest add button
 import { Input } from "@/components/ui/input" //needs npx shadcn@latest add Input
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table" //needs npx shadcn@latest add table
+import FileAutoImportForm from "./components/file-auto-import-form"
+import {useState} from "react"
+import FileImportManForm from "./components/file-man-import-form"
 
 export default function ImportComponent() {
   const processes = [
@@ -45,6 +50,26 @@ export default function ImportComponent() {
       modificationDate: "2023-05-02",
     },
   ]
+  const [autoActv,SetAutoActv]=useState(false);
+  const [manActv,SetManActv]=useState(false);
+  const fileAutoImportWind=(state:boolean)=>{
+      SetAutoActv(state);
+      
+  }
+  const fileManImportWind=(state:boolean)=>{
+      SetManActv(state);
+  }
+
+  const ActiveAutoImportWind=()=>{
+    SetAutoActv(true);
+    SetManActv(false);
+  }
+
+  const ActiveManImportWind=()=>{
+    SetManActv(true);
+    SetAutoActv(false);
+  }
+
 
   return (
     <div className="flex min-h-screen w-full">
@@ -55,13 +80,13 @@ export default function ImportComponent() {
       <div className="flex flex-1 flex-col">
         
 
-        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 ">
           {/* Charger les données section */}
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-semibold md:text-3xl">Charger les données</h1>
             <div className="flex gap-2">
-              <Button variant="outline">Importer</Button>
-              <Button>Auto</Button>
+              <Button onClick={ActiveManImportWind} variant="outline">Importer</Button>
+              <Button onClick={ActiveAutoImportWind}>Auto</Button>
             </div>
           </div>
 
@@ -110,6 +135,11 @@ export default function ImportComponent() {
             </div>
           </div>
         </main>
+        <div className="absolute left-[35%] w-max">
+          {autoActv&&<FileAutoImportForm activeMethod={fileAutoImportWind}/>}
+          {manActv && <FileImportManForm activeMethod={fileManImportWind}/>}
+        </div>
+        
       </div>
     </div>
   )
