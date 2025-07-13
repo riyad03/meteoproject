@@ -1,0 +1,13 @@
+# FastAPI and ASGI server
+fastapi==0.104.1
+uvicorn==0.24.0
+
+# Spring Cloud Config client
+config-client==1.4.0
+
+# HTTP requests for Eureka registration
+requests==2.31.0
+
+# Optional: If you need additional features
+# pydantic==2.5.0  # Already included with FastAPI
+# python-multipart==0.0.6  # If you need file uploads or form data
