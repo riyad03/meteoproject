@@ -1,0 +1,41 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+meteoprojectfe/node_modules
+meteoprojectfe/.pnp
+meteoprojectfe/pnp.*
+meteoprojectfe/yarn/*
+!meteoprojectfe/.yarn/patches
+!meteoprojectfe/.yarn/plugins
+!meteoprojectfe/.yarn/releases
+!meteoprojectfe/.yarn/versions
+
+# testing
+meteoprojectfe/coverage
+
+# next.js
+meteoprojectfe/.next/
+meteoprojectfe/out/
+
+# production
+meteoprojectfe/build
+
+# misc
+meteoprojectfe/.DS_Store
+meteoprojectfe/*.pem
+
+# debug
+meteoprojectfe/npm-debug.log*
+meteoprojectfe/yarn-debug.log*
+meteoprojectfe/yarn-error.log*
+meteoprojectfe/.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+meteoprojectfe/.env*
+
+# vercel
+meteoprojectfe/.vercel
+
+# typescript
+meteoprojectfe/*.tsbuildinfo
+meteoprojectfe/next-env.d.ts
