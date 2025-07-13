@@ -1,11 +1,10 @@
 
-
-import { Button } from "@/components/ui/button" //needs npx shadcn@latest add button
-import { Input } from "@/components/ui/input" //needs npx shadcn@latest add Input
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table" //needs npx shadcn@latest add table
 import FileAutoImportForm from "./components/file-auto-import-form"
 import {useState} from "react"
 import FileImportManForm from "./components/file-man-import-form"
+import ChargeDonnees from "./components/chargedonnee"
+import RecentsComponent from "./components/recentscompenent" //needs npx shadcn@latest add Recents
 
 export default function ImportComponent() {
   const processes = [
@@ -60,15 +59,7 @@ export default function ImportComponent() {
       SetManActv(state);
   }
 
-  const ActiveAutoImportWind=()=>{
-    SetAutoActv(true);
-    SetManActv(false);
-  }
-
-  const ActiveManImportWind=()=>{
-    SetManActv(true);
-    SetAutoActv(false);
-  }
+  
 
 
   return (
@@ -82,52 +73,35 @@ export default function ImportComponent() {
 
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 ">
           {/* Charger les données section */}
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-semibold md:text-3xl">Charger les données</h1>
-            <div className="flex gap-2">
-              <Button onClick={ActiveManImportWind} variant="outline">Importer</Button>
-              <Button onClick={ActiveAutoImportWind}>Auto</Button>
-            </div>
-          </div>
+          <ChargeDonnees SetAutoActv={SetAutoActv} SetManActv={SetManActv} />
 
           {/* Récents section */}
           <div className="grid gap-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold">Récents</h2>
-              <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm">
-                  Filtrer
-                </Button>
-                <Input
-                  type="search"
-                  placeholder="Chercher"
-                  className="w-full max-w-xs rounded-md border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:focus:border-gray-400"
-                />
-              </div>
-            </div>
+            <RecentsComponent/>
 
+            
             {/* Table */}
-            <div className="overflow-auto rounded-lg border shadow-sm">
-              <Table>
-                <TableHeader>
+            <div className="overflow-auto rounded-lg border shadow-sm w-full">
+              <Table className ="min-w-[1000px] text-sm md:text-base">
+                <TableHeader className="bg-gray-100 ">
                   <TableRow>
-                    <TableHead>Nom Processus</TableHead>
-                    <TableHead>Etat</TableHead>
-                    <TableHead>Date de création</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Propriétaire</TableHead>
-                    <TableHead>Date de modification</TableHead>
+                    <TableHead className ="px-6 py-3">Nom Processus</TableHead>
+                    <TableHead className ="px-6 py-3">Etat</TableHead>
+                    <TableHead className ="px-6 py-3">Date de création</TableHead>
+                    <TableHead className ="px-6 py-3">Status</TableHead>
+                    <TableHead className ="px-6 py=3">Propriétaire</TableHead>
+                    <TableHead className ="px-6 py=3">Date de modification</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {processes.map((process, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">{process.name}</TableCell>
-                      <TableCell>{process.state}</TableCell>
-                      <TableCell>{process.creationDate}</TableCell>
-                      <TableCell>{process.status}</TableCell>
-                      <TableCell>{process.owner}</TableCell>
-                      <TableCell>{process.modificationDate}</TableCell>
+                    <TableRow key={index} className="hover:bg-gray-50">
+                      <TableCell className=" px-6 py-3font-medium">{process.name}</TableCell>
+                      <TableCell className="px-6 py-3">{process.state}</TableCell>
+                      <TableCell className="px-6 py-3" >{process.creationDate}</TableCell>
+                      <TableCell className="px-6 py-3">{process.status}</TableCell>
+                      <TableCell className="px-6 py-3">{process.owner}</TableCell>
+                      <TableCell className="px-6 py-3">{process.modificationDate}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
