@@ -1,0 +1,9 @@
+{
+  "name": "Import CSV Data",
+  "description": "Import customer data from CSV file",
+  "import_type": "CSV",
+  "fields": ["name", "email", "phone", "address"],
+  "number_of_lines": 1500,
+  "input_filename": "requirements.txt",
+  "output_filename": "processed_customers.csv"
+}

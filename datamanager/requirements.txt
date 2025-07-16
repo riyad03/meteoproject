@@ -8,6 +8,22 @@ config-client==1.4.0
 # HTTP requests for Eureka registration
 requests==2.31.0
 
+python-multipart==0.0.6
+
 # Optional: If you need additional features
 # pydantic==2.5.0  # Already included with FastAPI
 # python-multipart==0.0.6  # If you need file uploads or form data
+
+
+curl -X POST http://localhost:8081/datamanager/process/dict/ 
+  -H "Content-Type: application/json" 
+  -d '{
+    "name": "Import CSV Data",
+    "description": "Import customer data from CSV file",
+    "file_type": "CSV",
+    "fields": ["name", "email", "phone", "address"],
+    "number_of_lines": 1500,
+    "input_filename": "requirements.txt",
+    "output_filename": "processed_customers.csv"
+  }'
+
