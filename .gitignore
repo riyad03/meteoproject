@@ -24,6 +24,8 @@ meteoprojectfe/build
 meteoprojectfe/.DS_Store
 meteoprojectfe/*.pem
 
+.vscode
+
 # debug
 meteoprojectfe/npm-debug.log*
 meteoprojectfe/yarn-debug.log*
