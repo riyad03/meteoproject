@@ -20,8 +20,7 @@ async def startImport(data: Dict[str, Any],file: UploadFile = File(...)):
         )
         
         return await process._startUploadThread()
-        #process._importFile()
-        #return process
+        
     except Exception as e:
         print(f"Error: {e}")
         raise
