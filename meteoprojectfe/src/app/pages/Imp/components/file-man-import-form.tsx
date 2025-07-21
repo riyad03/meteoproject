@@ -15,7 +15,11 @@ interface Prop{
   activeMethod:(value:boolean)=>void;
 }
 export  function FileImportManForm({activeMethod}:Prop) {
-  
+  /*
+  const [name,setName]=useState("");
+  const [description,setDescription]=useState("");
+  const [field,setField]=useState([]);
+  */
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [file,setFile]=useState<File|null>(null);
   const handleButtonClick = () => {

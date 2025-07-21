@@ -67,7 +67,7 @@ class ImportTask:
         self._thread = threading.Thread(target=self.upload_from_fastapi,args=(self.dst_path))
         self._thread.start()
 
-    def _run(self):
+    def _localCopy(self):
         try:
             self.dst_path = os.path.join(self.upload_dir, os.path.basename(self.src_path))
             cp=CopierAvecProgression(self.src_path,self.dst_path,self.buffer_size,progress_callback=self.update_progress)
@@ -145,7 +145,7 @@ class ImportTask:
 class Process():
    
 
-    def __init__(self,name,description,import_type,fields,number_of_lines,input_filename,output_filename,upload_file:UploadFile=File(...)):
+    def __init__(self,name,description,import_type,fields,number_of_lines,input_filename,output_filename,upload_file:UploadFile=File(...),metafile:UploadFile=File(...)):
         self.name=name
         self.description=description
         self.import_type=import_type
@@ -154,14 +154,30 @@ class Process():
         self.input_filename=input_filename
         self.output_filename=output_filename
         self.file=upload_file
+        self.metafile=metafile
         self.UPLOAD_DIR="uploads"
+        self.newDirect=os.path.join(self.UPLOAD_DIR,self.name)
+        os.makedirs(self.newDirect, exist_ok=True)
 
+    async def start(self):
+        
+        file_location = os.path.join(self.newDirect, self.metafile.filename)
+    
+        # Save the file to disk
+        with open(file_location, "wb") as buffer:
+            shutil.copyfileobj(self.metafile.file, buffer)
+
+        # Close the file after saving
+        await self.metafile.close()
+        await self._startUploadThread()
     
     async def _startUploadThread(self):
-        file_location = os.path.join(self.UPLOAD_DIR, self.file.filename)
+
+        file_location = os.path.join(self.newDirect, self.file.filename)
         with open(file_location, "wb") as f:
             while chunk := await self.file.read(1024 * 1024):  # lire par chunks de 1MB
                 f.write(chunk)
+        
 
         return {"filename": self.file.filename, "message": "Upload terminé, traitement lancé en arrière-plan"}
     

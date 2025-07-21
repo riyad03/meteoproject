@@ -176,15 +176,15 @@ class ProcessDict(BaseModel):
 from fastapi import Request
 
 @app.post("/process/dict/")
-async def create_process_dict(file: UploadFile = File(...),metadata: str = Form(...)):
+async def create_process_dict(file: UploadFile = File(...),fileMetdata: UploadFile=File(...),metadata: str = Form(...)):
     try:
         data = json.loads(metadata)
         print(f"Parsed JSON: {data}")
     except Exception as e:
         return {"error": "Invalid JSON in metadata", "detail": str(e)}
 
-   
-    result = await startImport(data,file)
+    
+    result = await startImport(data,fileMetdata,file)
     return {"status": "success", "received": result}
 
 '''

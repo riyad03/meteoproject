@@ -1,0 +1,44 @@
+{
+  "id": "https://example.org/records/observation-1234",
+  "conformsTo": ["http://wis.wmo.int/spec/wcmp/2/conf/core"],
+  "type": "Feature",
+  "time": {
+    "date": "2025-07-20"
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [12.4924, 41.8902]
+  },
+  "properties": {
+    "type": "dataset",
+    "title": "Temperature Observation - Rome",
+    "description": "Hourly temperature observation for Rome on July 20, 2025.",
+    "keywords": ["temperature", "Rome", "weather"],
+    "contacts": [
+      {
+        "organization": "WMO Rome Office",
+        "name": "Dr. Claudia Rossi",
+        "roles": ["pointOfContact"],
+        "emails": [
+          {
+            "value": "claudia.rossi@wmo.int"
+          }
+        ],
+        "phones": [
+          {
+            "value": "+390612345678"
+          }
+        ]
+      }
+    ],
+    "created": "2025-07-20T10:00:00Z"
+  },
+  "links": [
+    {
+      "href": "https://example.org/data/observation-1234.csv",
+      "rel": "enclosure",
+      "type": "text/csv",
+      "title": "Download CSV"
+    }
+  ]
+}

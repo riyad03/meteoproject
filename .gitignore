@@ -17,6 +17,9 @@ meteoprojectfe/coverage
 meteoprojectfe/.next/
 meteoprojectfe/out/
 
+datamanager/__pycache__/
+
+
 # production
 meteoprojectfe/build
 
