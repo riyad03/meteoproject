@@ -1,7 +1,7 @@
 # First install the library:
 # pip install config-client
 
-from fastapi import FastAPI, Request, Body
+from fastapi import FastAPI, Request, Body,Depends
 from config import ConfigClient
 import requests
 import threading
@@ -14,6 +14,8 @@ from pydantic import BaseModel
 from dataController import startImport
 from fastapi.responses import JSONResponse
 from fastapi import UploadFile, File,Form
+from jwt import get_current_user
+from notif import notif
 
 
 def load_config(app_name="datamanager", profile="dev", label="main", config_server="http://localhost:8888"):
@@ -133,13 +135,20 @@ async def startup_event():
 
 
 @app.get("/test")
-async def test():
+async def test(current_user:Dict=Depends(get_current_user)):
     """Test endpoint"""
     return JSONResponse(
         status_code=200,
         content={"message": "datamanager test 2"},
         headers={"Content-Type": "application/json"}
     )
+
+@app.get("/test/notif")
+async def testnotif(current_user:Dict=Depends(get_current_user)):
+    print("test notif entry reached")
+    result = await notif(msg="this is a test from datamanager",current_user=current_user)
+    return {"status": "sent", "result": result}
+
 
 @app.get("/actuator/health")
 async def health():

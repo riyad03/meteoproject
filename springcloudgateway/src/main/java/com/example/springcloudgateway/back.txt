@@ -1,0 +1,45 @@
+package com.example.springcloudgateway;
+
+import com.example.springcloudgateway.jwt.GatewayTokenEntryPoint;
+import com.example.springcloudgateway.jwt.GatewayTokenFilter;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+
+@Configuration
+@EnableAutoConfiguration(exclude = {
+        ReactiveSecurityAutoConfiguration.class,
+        ReactiveUserDetailsServiceAutoConfiguration.class
+})
+public class SecurityConfig {
+
+    private final GatewayTokenEntryPoint entryPoint;
+    private final GatewayTokenFilter gatewayTokenFilter;
+
+    // Constructor injection for the custom entry point
+    public SecurityConfig(GatewayTokenEntryPoint entryPoint,GatewayTokenFilter gatewayTokenFilter) {
+        this.entryPoint = entryPoint;
+        this.gatewayTokenFilter = gatewayTokenFilter;
+    }
+
+    @Bean
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        return http.csrf(csrf -> csrf.disable())
+                .httpBasic(httpBasic -> httpBasic.disable())  // Disable default auth
+                .formLogin(formLogin -> formLogin.disable())
+                .authorizeExchange(exchanges -> exchanges
+                                .anyExchange().permitAll()
+                        //.pathMatchers("/auth/**").permitAll()
+                        //.anyExchange().authenticated()
+                )
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint(entryPoint)
+                )
+                .build();
+    }
+}
+

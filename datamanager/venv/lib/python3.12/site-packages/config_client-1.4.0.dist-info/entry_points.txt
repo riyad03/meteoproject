@@ -1,0 +1,2 @@
+[console_scripts]
+config = config.__main__:cli

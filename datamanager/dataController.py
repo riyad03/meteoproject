@@ -6,7 +6,7 @@ from fastapi import UploadFile, File, HTTPException
 from metadata_check import validate_wcmp2_json #,validate_wcmp2_xml
 
 
-path_for_wcmp_schema="D:/Stage PFA/MeteoProject/datamanager/wcmp2-bundled.json"
+path_for_wcmp_schema="wcmp2-bundled.json"
 async def startImport(data: Dict[str, Any],fileMetadata:UploadFile = File(...),file: UploadFile = File(...)):
     try:
         
